@@ -1,0 +1,243 @@
+﻿-- copyright (c) 2001 yessoftware. all rights reserved.
+-- bugtrack_mssql.sql
+
+if exists (select * from sysobjects where id = object_id(n'card_types') and objectproperty(id, n'isusertable') = 1) drop table card_types
+go
+if exists (select * from sysobjects where id = object_id(n'categories') and objectproperty(id, n'isusertable') = 1) drop table categories
+go
+if exists (select * from sysobjects where id = object_id(n'editorial_categories') and objectproperty(id, n'isusertable') = 1) drop table editorial_categories
+go
+if exists (select * from sysobjects where id = object_id(n'editorials') and objectproperty(id, n'isusertable') = 1) drop table editorials
+go
+if exists (select * from sysobjects where id = object_id(n'items') and objectproperty(id, n'isusertable') = 1) drop table items
+go
+if exists (select * from sysobjects where id = object_id(n'members') and objectproperty(id, n'isusertable') = 1) drop table members
+go
+if exists (select * from sysobjects where id = object_id(n'orders') and objectproperty(id, n'isusertable') = 1) drop table orders
+go
+
+create table card_types (
+       card_type_id         int identity primary key,
+       name                 varchar(50) not null
+)
+go
+
+insert into card_types (name) values ('visa')
+go
+insert into card_types (name) values ('american express')
+go
+
+create table categories (
+       category_id          int  identity primary key,
+       name                 varchar(50) not null
+)
+go
+
+insert into categories (name) values ('programming')
+go
+insert into categories (name) values ('databases')
+go
+insert into categories (name) values ('html & web design')
+go
+
+create table editorial_categories (
+       editorial_cat_id     int  identity primary key,
+       editorial_cat_name   varchar(50) null
+)
+go
+
+insert into editorial_categories (editorial_cat_name) values ('what')
+go
+insert into editorial_categories (editorial_cat_name) values ('new')
+go
+insert into editorial_categories (editorial_cat_name) values ('weekly')
+go
+insert into editorial_categories (editorial_cat_name) values ('general')
+go
+
+create table editorials (
+       article_id           int identity primary key,
+       editorial_cat_id     int null default 0,
+       article_title        varchar(200) null,
+       article_desc         text null,
+       item_id              int null default 0
+)
+go
+
+insert into editorials (editorial_cat_id, article_title, article_desc, item_id)
+ values(1, 'a sharp combination', 'to get inside c#, microsoft''s new oo programming language, use a preview of c# as a guide. it offers a preview of visual studio.net and an overview of the .net framework, and demonstrates how c# is integrated with asp+, ado+, and com+ in .net applications. you''ll get examples of c# in action, too.', 22)
+go
+insert into editorials (editorial_cat_id, article_title, article_desc, item_id)
+ values(2, '1001 web site construction tips and tricks', '39.95', 21)
+go
+insert into editorials (editorial_cat_id, article_title, article_desc, item_id)
+ values(3, 'flash 4 magic', 'if you''re right in the middle of learning (or just jumping into) flash to create and manipulate animations, music tracks, sound effects, and interface design, try the flash 4 magic. inside are tutorials, graphic presentations, and a cd.', 8)
+go
+insert into editorials (editorial_cat_id, article_title, article_desc, item_id)
+ values(4, '<b><font color="brown">free shipping on orders over $40</font></b>', 'for limited time only, until next sunday, you can enjoy free shipping. simply order more then $40 worth of books and shipping''s on us.', 0)
+go
+
+create table items (
+       item_id              int identity primary key,
+       category_id          int not null,
+       name                 varchar(255) not null,
+       author               varchar(100) null,
+       price                numeric(10,2) not null,
+       product_url          varchar(255) null,
+       image_url            varchar(100) null,
+       notes                text null,
+       is_recommended       tinyint null default 0,
+       rating        int default 0,
+       rating_count     int default 0
+)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(2, 'web database development : step by step', 'jim buyens', 39.99, 'http://www.amazon.com/exec/obidos/asin/0735609667/yessoftware', 'images/books/0735609667.jpg', 'as web sites continue to grow in complexity and in the volume of data they must present, databases increasingly drive their content. web database development fundamentals is ideal for the beginning-to-intermediate web developer, departmental power user, or entrepreneur who wants to step up to a database-driven web site-without buying several in-depth guides to the different technologies involved. this book uses the clear microsoft(r) step by step tutorial method to familiarize developers with the technologies for building smart web sites that present data more easily. ', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'programming perl (3rd edition)', 'larry wall, tom christiansen, jon orwant', 39.96, 'http://www.amazon.com/exec/obidos/asin/0596000278/yessoftware', 'images/books/0596000278.jpg', 'perl is a powerful programming language that has grown in popularity since it first appeared in 1988. the first edition of this book, programming perl, hit the shelves in 1990, and was quickly adopted as the undisputed bible of the language. since then, perl has grown with the times, and so has this book.
+programming perl is not just a book about perl. it is also a unique introduction to the language and its culture, as you might expect only from its authors. larry wall is the inventor of perl, and provides a unique perspective on the evolution of perl and its future direction. tom christiansen was one of the first champions of the language, and lives and breathes the complexities of perl internals as few other mortals do. jon orwant is the editor of the perl journal, which has brought together the perl community as a common forum for new developments in perl. ', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'perl and cgi for the world wide web: visual quickstart guide', 'elizabeth castro', 15.19, 'http://www.amazon.com/exec/obidos/asin/020135358x/yessoftware', 'images/books/020135358x.gif', 'taking a visual approach, this guide uses ample screen stills to explain the basic components of perl, and show how to install and customize existing cgi scripts to build interactivity into web sites.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(2, 'mysql (other new riders)', 'paul dubois', 39.99, 'http://www.amazon.com/exec/obidos/asin/0735709211/yessoftware', 'images/books/0735709211.jpg', 'in mysql, paul dubois provides you with a comprehensive guide to one of the most popular relational database systems. as an important contributor to the online documentation for mysql, paul uses his day-to-day experience answering questions users post on the mysql mailing list to pinpoint the problems most users and administrators encounter.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'php and mysql web development', 'luke welling, laura thomson', 39.99, 'http://www.amazon.com/exec/obidos/asin/0672317842/yessoftware', 'images/books/0672317842.jpg', 'php3 and mysql web development introduces you to the advantages of implementing both mysql and php3. these advantages are detailed through the provision of both statistics and several case studies. a practical web application is developed throughout the book, providing you with the tools necessary to implement a functional online database. each function is developed separately, allowing you the choice to incorporate only those parts that you would like to implement. programming concepts of the php3 language are highlighted, including functions which tie mysql support into a php3 script and advanced topics regarding table manipulation.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'mysql & php from scratch', 'wade maxfield', 23.99, 'http://www.amazon.com/exec/obidos/asin/0789724405/yessoftware', 'images/books/0789724405.jpg', 'apache, mysql, php3, and imp the pieces exist. each piece has been described ad nauseam. what does not exist is a guide to the marriage of these software technologies into a useful book, until now. this book puts together information on installing, setting up, and troubleshooting each of these technologies into one complete volume. you also learn how each piece is part of a whole by learning, step-by-step, how to create a web-based e-mail system. learn to run the linux equivalent of active server pages (asp) using php3, set up an e-commerce site using a database and the apache web server, and create a data entry system (such as sales, product quality tracking, customer preferences, etc) that requires no installation in the pc.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(2, 'mysql and msql', 'randy jay yarger, george reese, tim king', 27.96, 'http://www.amazon.com/exec/obidos/asin/1565924347/yessoftware', 'images/books/1565924347.jpg', 'mysql and msql are popular and robust database products that support key subsets of sql on both linux and unix systems. both products are free for non-profit use and cost a small amount for commercial use. 
+
+even a small organization or web site has uses for a database. prehaps you keep track of all your customers and find that your information is outgrowing the crude, flat-file format you started with. or you want to ask your web site''s visitors for their interests and preferences and put up a fresh web page that tallies the results. 
+
+unlike commercial databases, mysql and msql are affordable and easy to use. if you know basic c, java, perl, or python, you can quickly write a program to interact with your database. in addition, you can embed queries and updates right in an html file so that a web page becomes its own interface to the database.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(3, 'flash 4 magic (with cd-rom)', 'david j. emberton, j. scott hamlin, david emberton', 36, 'http://www.amazon.com/exec/obidos/asin/0735709491/yessoftware', 'images/books/0735709491.jpg', 'flash has moved beyond java and even shockwave because it''s inexpensive, accessible, and powerful. if you need a specific flash solution or you learn best by getting your hands dirty, the project-based flash 4 magic will work well for you.
+the authors have assembled 15 utilities-based projects (a calculator and an online book search animation, for example) and six games (one of which is a memory/match game similar to those found all over the web these days). each project is presented step by step and includes text and complementary screen shots. at the end of each lesson, a "how it works" section gives insight into the software mechanisms and serves as a review. a brief discussion of how the project can be modified to fit the readers'' needs follows. all the files, libraries, images, and even finished flash .fla files and .swf movies are provided on the accompanying cd-rom, helping readers follow along and debug their multimedia experiments.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'web application development with php 4.0 (with cd-rom)', 'tobias ratschiller, till gerken', 36, 'http://www.amazon.com/exec/obidos/asin/0735709971/yessoftware', 'images/books/0735709971.jpg', 'php is an open-source web scripting language that''s gaining steam in the development community, especially in the apache web server realm. with a syntax that draws heavily on c, php appeals to advanced programmers who are moving to the web from traditional software development.
+web application development with php 4.0 isn''t your run-of-the-mill language tutorial. authors ratschiller and gerken purposely designed its content to appeal to coders who already are proficient in php, but in need of advanced programming techniques and high-level application-development skills. assuming a strong programming foundation, this book can be considered a next-level php tutorial.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(2, 'beginning asp databases', 'john kaufman, thearon willis, david buser, kevin spencer, kauffman, john kauffman', 39.99, 'http://www.amazon.com/exec/obidos/asin/1861002726/yessoftware', 'images/books/1861002726.jpg', 'as a tutorial, beginning asp databases offers an entry point to one of the most crucial aspects of microsoft-oriented web development--database integration with active server pages. in beginning asp databases, a trio of authors covers the basics of working with databases from asp--especially using activex database objects (ado).
+the book is quite substantive in content but is written in a somewhat light-hearted style that makes readers new to the technology comfortable. the authors begin with a discussion of the benefits of asp and ado, and then explain how to configure the technology on the various flavors of windows. from there, they show how to access databases using ado, demystify how it all works, and focus on several key areas, including debugging, sql, and stored procedures.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(2, 'oracle8i web development', 'bradley d. brown, brad brown', 41.99, 'http://www.amazon.com/exec/obidos/asin/0072122420/yessoftware', 'images/books/0072122420.jpg', 'although this title doesn''t include the "tips & techniques" label like some of the other oracle press installments do, it falls into that category. oracle8i web development is a collection of diverse overviews, specific techniques, and recommendations for the wide range of interrelated oracle tools for creating professional web applications.
+this is not a start-to-finish tutorial but rather a tool for developers already familiar with the oracle architecture and oracle application server (oas). it is fast moving, with targeted discussions of issues ranging from hardware preparations to html/javascript/xml coding to miscellaneous development tools. there are plenty of useful tidbits in here for experienced oracle web coders, but those newer to the technology platform will likely find the presentation a bit choppy.
+
+one of the most useful sections of this book is its coverage of the webserver generator and oracle designer packages. here the reader will learn about the generated procedures and the webserver generator''s key preferences. other key chapters on perl and java are also useful, albeit rather brief.
+
+an appendix of useful reference web sites does a good job of rounding out this utilitarian guide. while this title is primarily a compendium of key information and not a comprehensive manual for web site development, it ties together content about various products that isn''t usually found in a single source. --stephen w. plain', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'black belt web programming methods: servers, security, databases and sites', '', 27.96, 'http://www.amazon.com/exec/obidos/asin/0879304979/yessoftware', 'images/books/0879304979.gif', 'use this book to build a robust infrastructure for powerful web sites. master programmers who write for web techniques, dr. dobb''s journal, interactivity, data base management systems, network, and software development have joined forces to tackle the latest round of web programming puzzles for you. learn airtight security procedures and hypertext transaction designs. build databases that are easy to use. whether you need to create distributed objects or automate web site maintenance, these seasoned programmers explain how to do it right, and they give you the code to do the job. the companion code disk includes detailed, reusable code for each of the applications presented. programming languages include c/c++ and java. the book''s four main sections (servers, sites, databases, and security (illustrate generic techniques for web configuration management and for server performance tuning. you''ll learn time-saving new tips to use with database servers and applications, high performance graphics, security options, and transaction encryption.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'web development with java server pages', 'duane k. fields, mark a. kolb', 35.96, 'http://www.amazon.com/exec/obidos/asin/1884777996/yessoftware', 'images/books/1884777996.jpg', 'dynamic content-personalized, customized, and up-to-the-minute-is a key component of site development on the world wide web today. java server pages (jsp) is a new server-side technology for generating dynamic content in web pages and other on-line applications. this guide to jsp covers all aspects of development and includes comparisons to similar dynamic content systems such as cgi, active server pages, cold fusion, and php. included is a discussion of the use of component centric design via java beans and custom tag libraries for separating the presentation of dynamic data (the layout, look, and feel) from its implementation (the code that generates it).', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'professional java server programming j2ee edition', 'wrox multi team', 47.99, 'http://www.amazon.com/exec/obidos/asin/1861004656/yessoftware', 'images/books/1861004656.jpg', 'rather than a simple update of the existing professional java server programming book, the j2ee edition represents an evolution of the content to reflect the changing state of server-side java development. whereas the first edition can be seen as an introduction to java on the server, the new edition is a more tightly integrated vision of how to combine the java technologies to develop n-tier applications in java based primarily around j2ee. since the release of the first edition in the fall of ''99, probably the single most significant change in the java server-side landscape has been the release of the java 2 platform, enterprise edition (j2ee). although we covered many of the elements of j2ee in the first edition of the book, many things have changed.
+j2ee represents a serious attempt by sun to make java not just a viable language, but more importantly a viable platform for enterprise development. this book is about how to use java for enterprise development, using the j2ee runtime architecture. 
+wide range of technologies including: j2ee, rmi, jdbc, jndi, ldap, xml, xslt, servlets, jsp, ejb, jms, javamail, corba, performance, scalability, unit testing, and debugging 
+benefits and limits of the typical real-world vendor implementations of the j2ee specification 
+the resulting practical aspects of real-word design using the j2ee technologies', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'mastering coldfusion 4.5', 'arman danesh, kristin aileen motlagh, kristin motlagh', 39.99, 'http://www.amazon.com/exec/obidos/asin/0782127738/yessoftware', 'images/books/0782127738.jpg', 'allaire''s coldfusion is one of the most robust server-side scripting solutions for web developers, offering the notable advantage of cross-platform deployment. mastering coldfusion 4.5 is a comprehensive exploration of this powerful product that makes migration to the language quick and first exposure to server-scripting easy to follow.
+with more than 1000 pages, this book provides a step-by-step education in coldfusion and plenty of examples for hands-on learning. the first chapters immediately give the reader a feel for how coldfusion templates interact with html. then the text steps back to begin presenting more details systematically. one of coldfusion''s key features--database interaction with the cfquery tag and sql--is addressed early on with simple examples.
+once it hooks the reader on the power of coldfusion, the book illustrates the product''s flexibility in dealing with e-mail, ftp, ldap servers, and custom tags. it goes on to cover the coldfusion studio integrated-development environment--though not in depth. the real focus of this book is how the coldfusion language works.
+developers familiar with other scripting environments such as microsoft active server pages will immediately feel at home with the subject matter and quickly move through this hefty book. those with only html knowledge will find all the details they need to learn about server-side scripting and may only need a supplemental study of sql.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'teach yourself coldfusion in 21 days (teach yourself -- 21 days)', 'charles mohnike', 31.99, 'http://www.amazon.com/exec/obidos/asin/0672317966/yessoftware', 'images/books/0672317966.jpg', 'sams teach yourself coldfusion in 21 days quickly empowers you to create your own dynamic database-driven web applications using allaire''s coldfusion. using client-proven methods, and the success of his popular coldfusion tutorial for wired, expert author charles mohnike provides you with an understanding of the coldfusion server and guides you through the use of the coldfusion studio, enabling you to create your own coldfusion applications quickly and easily. topics such as installing and configuring the coldfusion server, working with the coldfusion studio, working with sql, optimizing your datasource, understanding templates and coldfusion markup language (cfml), using coldfusion tags, manipulating data, creating e-commerce solutions with coldfusion, and debugging coldfusion applications.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'coldfusion fast & easy web development', 't. c., iii bradley', 19.99, 'http://www.amazon.com/exec/obidos/asin/0761530169/yessoftware', 'images/books/0761530169.jpg', 'allaires coldfusion is a powerful solution for developers wanting to build secure, scalable, and manageable web applications. coldfusion fast & easy web development takes a visual approach to learning this web application server. it combines easy-to-understand instructions and real screen shots for a truly unique learning experience. this book covers topics from coldfusion basics to retrieving data to building dynamic queries and applications with coldfusion. the innovative, visual approach of the fast & easy web development series provides a perfect format for programmers of all levels.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'beginning active server pages 3.0', 'david buser, chris ullman, jon duckette', 31.99, 'http://www.amazon.com/exec/obidos/asin/1861003382/yessoftware', 'images/books/1861003382.jpg', 'filling an important spot in the wrox programmer to programmer series, beginning active server pages 3.0 is an excellent introduction to the new version of asp released for the windows 2000 platform. this guide expects no previous asp knowledge or even previous web development experience. 
+its friendly style makes this book welcome reading at all skill levels. the material is carefully presented to avoid losing readers who are totally new to asp programming, yet it still provides impressive technical coverage, beginning with the very basic concepts behind asp programming and moving forward to advanced coding techniques.
+as each topic is presented, relevant screen shots and useful code snippets under the heading "how it works" complement the text. the chapters also include step-by-step exercises to familiarize you with new techniques and tools. an extensive case study application takes you through the entire development process as well. if you''re interested in web coding microsoft-style, this is the right place to start.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(3, 'web design in a nutshell : a desktop quick reference', 'jennifer niederst, richard koman', 23.96, 'http://www.amazon.com/exec/obidos/asin/1565925157/yessoftware', 'images/books/1565925157.jpg', 'are you a print designer working on the web? an html coder learning about server-side hosting for the first time? web design in a nutshell has slim but whole chapters for those topics-- and everything else you can imagine.
+written in the popular "nutshell" format, this guide is full of helpful tables and lists, making it a perfect desktop reference. the book breaks down the huge topic of web site development into understandable, readable segments: the web environment (browsers, displays, design principles), an in-depth guide to html tags, graphics manipulation and display, multimedia possibilities, and technologies for larger site management (such as cascading style sheets [css] and xml).
+while this book is certainly comprehensive, the abundance of information could be overwhelming to someone just starting out with html. in addition, the heart of this book is filled with technical specificity on web page creation (for example, a section under "graphics" is titled "gif87a versus gif89a). readers looking for more conceptual explanations of web design and layout would be better served with other titles. but for day-to-day development and maintenance, web design in a nutshell is a truly well-constructed toolkit.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(3, 'html 4 for the world wide web visual quickstart guide', 'elizabeth castro', 15.99, 'http://www.amazon.com/exec/obidos/asin/0201354934/yessoftware', 'images/books/0201354934.jpg', 'whether you use a high-end authoring application like dreamweaver, or in the most economical fashion you write your own code out in a text file, knowing your way around html comes in handy. html 4 for the world wide web: visual quickstart guide will teach you what you need to know quickly. 
+the book covers the latest specifications of html 4 set by the world wide web consortium, from the most basic tags that place text, images, and links on the page to more complex ones that set up tables, frames, or forms. new to this fourth edition, the book provides a chapter on debugging, including browser compatibility issues, expanded sections on cascading style sheets, javascript, and cgi scripts for use with forms.
+as with all visual quickstart guides, html 4 features clear and concise instructions side by side with well-captioned illustrations and screen shots that show both the source code and the resulting effect on the web page. the index is extremely detailed, making this a good reference book for intermediate users who are already familiar with basic html but need help with specific topics.
+the book also includes extensive and useful appendices. one offers a chart that describes each tag (along with its compatibility with netscape navigator and/or microsoft internet explorer.) other appendices show the code for special symbols, hexadecimal equivalents for rgb colors, and a comparison chart for some of the html editors on the market. all in all, this is the perfect desktop reference for web designers.', 0)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(3, '1001 web site construction tips and tricks', 'richard schwartz, kris jamsa, d. runnoe connally', 39.95, 'http://www.amazon.com/exec/obidos/asin/1884133193/yessoftware', 'images/books/1884133193.gif', 'there is much more to creating a web site than simply knowing html. designers must understand the ins and outs of image manipulation and compression, animation through the use of gifs, activex controls, java applets, and server-push operations. server administrators must understand security issues that include secure transactions, digital signatures, and firewalls. regardless of the web-based task at hank, users will find solutions within 1001 web site construction tips. the book''s companion cd-rom contains utilities, scripts, and applets that users can put to immediate use on their systems.', 1)
+go
+
+insert into items (category_id, name, author, price, product_url, image_url, notes, is_recommended)
+ values(1, 'c# - programming with the public beta', 'burton harvey, simon robinson, julian templeman, burt harvey, karli watson', 34.99, 'http://www.amazon.com/exec/obidos/asin/1861004877/yessoftware', 'images/books/1861004877.jpg', 'c# is a new object-oriented programming language in development from microsoft. based on c++ it contains features similar to those of java. the intention is to combine the computing power of c++ with the programming ease of visual basic. 
+c# has been created with the internet in mind and an aim to balance power with productivity. it provides rapid web development for the c++ and c programmer. 
+forming part of the new .net initiative, c# is designed to be used in conjunction with microsoft''s .net platform of products. c# makes use of xml data and soap in order to simplify programming, these facilities allow the user to build on existing code rather than making repeated duplications. c# is expected to make it faster and less expensive to market new products and services. microsoft''s aim for this product is to facilitate the exchange of information and services over the web and to enable developers to build highly portable applications.', 0)
+go
+
+create table members (
+       member_id            int identity primary key,
+       member_login         varchar(20) not null,
+       member_password      varchar(20) not null,
+       member_level         int not null default 1,
+       first_name           varchar(50) not null,
+       last_name            varchar(50) not null,
+       email                varchar(50) not null,
+       phone                varchar(50) null,
+       address              varchar(50) null,
+       notes                text null,
+       card_type_id         int null,
+       card_number          varchar(50) null
+)
+go
+
+insert into members (member_login, member_password, member_level, first_name, last_name, email)
+ values ('admin', 'admin', 2, 'administrator', 'account', 'admin@localhost')
+go
+
+insert into members (member_login, member_password, member_level, first_name, last_name, email)
+ values ('guest', 'guest', 1, 'guest', 'account', 'guest@localhost')
+go
+
+create table orders (
+       order_id             int identity primary key,
+       member_id            int not null,
+       item_id              int not null,
+       quantity             int not null
+)
+go
+ 

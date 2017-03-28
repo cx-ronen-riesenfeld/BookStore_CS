@@ -1,0 +1,27 @@
+Severity,Query,Position
+ , buffer_overflow , 4
+ , cgi_xss , 23
+ , cleansing_canonicalization_and_comparison_errors , 27
+ , client_cross_frame_scripting_attack , 1
+ , command_injection , 3
+ , declaration_of_catch_for_generic_exception , 38
+ , detection_of_error_condition_without_action , 32
+ , exposure_of_resource_to_wrong_sphere , 219
+ , getlastwin32error_is_not_called_after_pinvoke , 12
+ , heap_inspection , 13
+ , heuristic_sql_injection , 2
+ , improper_exception_handling , 3854
+ , improper_resource_shutdown_or_release , 22
+ , improper_restriction_of_xxe_ref , 6
+ , improper_transaction_handling , 4
+ , insecure_data_storage , 22
+ , leaving_temporary_files , 1
+ , missing_xml_validation , 11
+ , path_traversal , 106
+ , privacy_violation , 6
+ , race_condition_within_a_thread , 2
+ , unchecked_error_condition , 75
+ , unvalidated_arguments_of_public_methods , 63
+ , use_of_broken_or_risky_cryptographic_algorithm , 4
+ , visible_pointers , 4
+
