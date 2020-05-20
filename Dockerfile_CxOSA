@@ -1,4 +1,4 @@
-FROM jbruin/cxpoc:ubuosa
+FROM jbruin/cxpoc:2020.2.4
 
 #push and uncompress source
 COPY src.zip .
