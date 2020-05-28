@@ -113,7 +113,7 @@ login(password );
 
 		public static string GetValue(DataRow row, string field) {
 			if (row[field].ToString() == null)
-				return ""; //123
+				return ""; //123456
 			else
 				return row[field].ToString();
 		}
