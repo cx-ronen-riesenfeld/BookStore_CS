@@ -158,7 +158,7 @@ login(password );
 	}
 
 	public string GetParam(string ParamName) {
-		string Param = Request.QueryString[ParamName]; //123444
+		string Param = Request.QueryString[ParamName]; //123444556
 		if (Param == null)
 			Param = Request.Form[ParamName];
 		if (Param == null)
