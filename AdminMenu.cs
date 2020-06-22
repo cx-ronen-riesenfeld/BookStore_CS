@@ -5,7 +5,7 @@ namespace Book_Store
 //
 //    Filename: AdminMenu.cs
 //    Generated with CodeCharge 2.0.5
-//    ASP.NET C#.ccp build 03/07/2002  aaa
+//    ASP.NET C#.ccp build 03/07/2002  aaabbb
 //
 //-------------------------------
 //
