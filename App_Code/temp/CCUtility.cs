@@ -157,7 +157,7 @@ login(password );
 		Connection.Close();
 	}
 
-	public string GetParam(string ParamName) {
+	public int GetParam(string ParamName) {
 		string Param = Request.QueryString[ParamName];
 		if (Param == null)
 			Param = Request.Form[ParamName];
@@ -183,8 +183,10 @@ login(password );
 			sReturn = "";
 		}
 
-		reader.Close();
-		return sReturn;
+         reader.Close();
+
+           
+        return sReturn;
 	}
 
 	public int DlookupInt(string table, string field, string sWhere)

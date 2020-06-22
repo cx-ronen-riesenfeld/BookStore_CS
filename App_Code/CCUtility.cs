@@ -115,7 +115,7 @@ namespace Book_Store
 
 		public static string GetValue(DataRow row, string field) {
 			if (row[field].ToString() == null)
-				return "";
+				return ""; //123
 			else
 				return row[field].ToString();
 		}
@@ -161,7 +161,8 @@ namespace Book_Store
 
 	public string GetParam(string ParamName) {
 		string Param = Request.QueryString[ParamName];
-		if (Param == null)
+        //string Param = Request.QueryString[ParamName];
+            if (Param == null)
 			Param = Request.Form[ParamName];
 		if (Param == null)
 			return "";
@@ -285,6 +286,14 @@ namespace Book_Store
 		}
 	}
 
+     public String Validate(String s)
+        {
+            //valida un string y elimina cualquier caracter invalido
+            return s;
+        }
+
+
     }
+
 
 }
