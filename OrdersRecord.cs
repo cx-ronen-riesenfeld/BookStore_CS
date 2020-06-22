@@ -210,7 +210,11 @@ Utility.buildListBox(Orders_item_id.Items,"select item_id,name from items order 
 
 		String pValue;
 
+<<<<<<< HEAD
 		pValue = Utility.GetParam("order_id");Orders_order_id.Text = pValue; //123
+=======
+		pValue = Utility.GetParam("order_id");Orders_order_id.Text = pValue;
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 		pValue = Utility.GetParam("member_id");
 		try {Orders_member_id.SelectedIndex=Orders_member_id.Items.IndexOf(Orders_member_id.Items.FindByValue(pValue));
 		}catch{}

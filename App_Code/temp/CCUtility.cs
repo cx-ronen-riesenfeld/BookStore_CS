@@ -157,7 +157,11 @@ login(password );
 		Connection.Close();
 	}
 
+<<<<<<< HEAD
 	public int GetParam(string ParamName) {
+=======
+	public string GetParam(string ParamName) {
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 		string Param = Request.QueryString[ParamName];
 		if (Param == null)
 			Param = Request.Form[ParamName];
@@ -183,10 +187,15 @@ login(password );
 			sReturn = "";
 		}
 
+<<<<<<< HEAD
          reader.Close();
 
            
         return sReturn;
+=======
+		reader.Close();
+		return sReturn;
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 	}
 
 	public int DlookupInt(string table, string field, string sWhere)

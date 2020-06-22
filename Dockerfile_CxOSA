@@ -1,0 +1,10 @@
+FROM jbruin/cxpoc:2020.2.4
+
+#push and uncompress source
+COPY src.zip .
+RUN unzip src.zip -d /checkmarx/source/
+RUN ls -la /checkmarx/source/
+RUN pwd
+
+#run scan
+RUN /checkmarx/runCxConsole.sh OsaScan -v -Projectname 	"CxServer\\Local_SP\\MyCompany\\Dev_Mex\\BookStoreCSharp" -CxServer "http://c236387a.ngrok.io" -CxToken f254c594e9b8b3a238f18a449a65448fcd593f0ae71f59e0156cfb0a3431e808 -executepackagedependency -LocationType folder -LocationPath "/checkmarx/source"

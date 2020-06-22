@@ -115,7 +115,11 @@ namespace Book_Store
 
 		public static string GetValue(DataRow row, string field) {
 			if (row[field].ToString() == null)
+<<<<<<< HEAD
 				return ""; //123
+=======
+				return "";
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 			else
 				return row[field].ToString();
 		}
@@ -161,8 +165,12 @@ namespace Book_Store
 
 	public string GetParam(string ParamName) {
 		string Param = Request.QueryString[ParamName];
+<<<<<<< HEAD
         //string Param = Request.QueryString[ParamName];
             if (Param == null)
+=======
+		if (Param == null)
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 			Param = Request.Form[ParamName];
 		if (Param == null)
 			return "";
@@ -286,6 +294,7 @@ namespace Book_Store
 		}
 	}
 
+<<<<<<< HEAD
      public String Validate(String s)
         {
             //valida un string y elimina cualquier caracter invalido
@@ -296,4 +305,8 @@ namespace Book_Store
     }
 
 
+=======
+    }
+
+>>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
 }
