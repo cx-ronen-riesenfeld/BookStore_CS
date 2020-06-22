@@ -5,7 +5,7 @@ namespace Book_Store
 //    Filename: AdminBooks.cs
 //    Generated with CodeCharge 2.0.5
 <<<<<<< HEAD
-//    ASP.NET C#.ccp build 03/07/2002 a
+//    ASP.NET C#.ccp build 03/07/2002 abc
 =======
 //    ASP.NET C#.ccp build 03/07/2002
 >>>>>>> 2fc266d8d56201f6a09a54b47b72ade49d541f38
