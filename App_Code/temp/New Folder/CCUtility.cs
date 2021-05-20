@@ -115,7 +115,7 @@ login(password );
 			if (row[field].ToString() == null)
 				return ""; //123123456
 			else
-				return row[field].ToString();
+				return mySanitizador(row[field].ToString());
 		}
 
         public OleDbConnection Connection;
