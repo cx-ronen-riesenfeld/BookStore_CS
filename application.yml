@@ -20,7 +20,6 @@ cx-flow:
   filter-category:
   filter-cwe:
   filter-status:
-  codebash-url: https://checkmarx-demo.codebashing.com/courses/
   track-application-only: true
 
 
@@ -45,8 +44,7 @@ checkmarx:
   preserve-xml: true
 
 azure:
-  webhook-token: cxflow:12345
-  token: enwbwvmcupfexs57snttjrtm7niqjrkcawgutuvagavvrlcxzpja
+  token: raxx7bxgpckeinbzeooh5akqiobe3wb5dbz6ev6cp7rvv3yapqva
   url: https://dev.azure.com/ronenriesenfeld
   issue-type: issue
   api-version: 5.0
