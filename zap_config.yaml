@@ -1,0 +1,116 @@
+---
+env:
+  contexts:
+  - name: "Default Context"
+    urls:
+    - "http://webgoat.ngrok.io/BookStore"
+    includePaths:
+    - "http://webgoat.ngrok.io/BookStore/.*"
+    excludePaths: []
+    authentication:
+      method: "form"
+      parameters:
+        loginRequestBody: "username={%username%}&password={%password%}"
+        loginPageUrl: "http://webgoat.ngrok.io/BookStore/Login.aspx"
+        loginRequestUrl: "http://webgoat.ngrok.io/BookStore/Login.aspx"
+      verification:
+        method: "response"
+        loggedInRegex: ""
+        loggedOutRegex: ""
+        pollFrequency: 60
+        pollUnits: "requests"
+        pollUrl: ""
+        pollPostData: ""
+    sessionManagement:
+      method: "cookie"
+      parameters: {}
+    users:
+    - name: "admin"
+      credentials:
+        password: "admin"
+        username: "admin"
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- parameters:
+    maxAlertsPerRule: 0
+    scanOnlyInScope: true
+    maxBodySizeInBytesToScan: 0
+    enableTags: false
+  rules: []
+  name: "passiveScan-config"
+  type: "passiveScan-config"
+- parameters:
+    context: "Default Context"
+    user: "admin"
+    url: "http://webgoat.ngrok.io/BookStore"
+    maxDuration: 0
+    maxDepth: 0
+    maxChildren: 0
+  name: "spider"
+  type: "spider"
+  tests:
+  - onFail: "INFO"
+    statistic: "automation.spider.urls.added"
+    site: ""
+    operator: ">="
+    value: 100
+    name: "At least 100 URLs found"
+    type: "stats"
+- parameters:
+    context: "Default Context"
+    user: "admin"
+    url: "http://webgoat.ngrok.io/BookStore/Login.aspx"
+    maxDuration: 60
+    maxCrawlDepth: 10
+    numberOfBrowsers: 1
+    runOnlyIfModern: false
+  name: "spiderAjax"
+  type: "spiderAjax"
+  tests:
+  - onFail: "INFO"
+    statistic: "spiderAjax.urls.added"
+    site: ""
+    operator: ">="
+    value: 100
+    name: "At least 100 URLs found"
+    type: "stats"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters:
+    context: "Default Context"
+    user: "admin"
+    policy: ""
+    maxRuleDurationInMins: 0
+    maxScanDurationInMins: 0
+  policyDefinition:
+    defaultStrength: "medium"
+    defaultThreshold: "medium"
+    rules: []
+  name: "activeScan"
+  type: "activeScan"
+- parameters:
+    template: "traditional-json-plus"
+    reportDir: "C:\\zemp"
+    reportFile: "ZAP-Report"
+    reportTitle: "ZAP Scanning Report"
+    reportDescription: ""
+    displayReport: false
+  risks:
+  - "info"
+  - "low"
+  - "medium"
+  - "high"
+  confidences:
+  - "falsepositive"
+  - "low"
+  - "medium"
+  - "high"
+  - "confirmed"
+  name: "report"
+  type: "report"
+
