@@ -1,0 +1,16 @@
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v3
+    # Scan Iac with kics
+    - name: Checkmarx DAST Github Action
+      uses: Checkmarx/dast-github-action@v1.0.0-beta
+      env:
+        CX_APIKEY: ${{ secrets.CX_ONE_API_KEY }}
+      with:
+        command: "web"
+        config: 'zap_config.yaml'
+        base_url: "http://webgoat.ngrok.io"
+        environment_id: "5296fe9b-c3f1-4968-9f0d-bdce3d69acf7"
+        fail_on: "HIGH"
+        verbose: true
