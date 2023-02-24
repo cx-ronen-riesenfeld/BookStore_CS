@@ -1,0 +1,13 @@
+#
+# Example for a DAST web scan
+#
+trigger:
+  - master
+pool:
+  vmImage: "ubuntu-latest"
+container: checkmarx/dast:latest
+steps:
+  # DAST should fail the pipeline if results are found
+  - script: |
+      /app/bin/dast web --config ${PWD}/zap_config.yaml --verbose
+    env:     AST_API_KEY: $(SecretKey)
