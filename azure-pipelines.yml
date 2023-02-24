@@ -9,5 +9,5 @@ container: checkmarx/dast:latest
 steps:
   # DAST should fail the pipeline if results are found
   - script: |
-      /app/bin/dast web --config ${PWD}/zap_config.yaml --verbose --environment-id  5296fe9b-c3f1-4968-9f0d-bdce3d69acf7
-    env:     AST_API_KEY: $(SecretKey)
+    /app/bin/dast web --config ${PWD}/zap_config.yaml --verbose --environment-id  5296fe9b-c3f1-4968-9f0d-bdce3d69acf7
+    env: AST_API_KEY: $(SecretKey)
