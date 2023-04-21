@@ -37,7 +37,7 @@ jobs:
         config: './gin_juice.yaml'
         # openapi: file here
         base_url: "https://deu.ast.checkmarx.net"
-        environment_id: "3de0a448-c237-4bba-a1b3-2ff834af9714"
+        environment_id: "3de0a448-c237-4bba-a1b3-2ff834af971499"
         fail_on: "HIGH"
         verbose: true
         output: ./output
