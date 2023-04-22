@@ -31,7 +31,7 @@ jobs:
     - name: Checkmarx DAST Github Action
       uses: Checkmarx/dast-github-action@v1.0.2
       env:
-        CX_APIKEY: eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhODZiNjEzNC0xZGMwLTRjMjktODIyYi0zZDhhYmRjYzg1NTYifQ.eyJpYXQiOjE2ODIxMTEzMzksImp0aSI6ImI5OTVkOTk5LTEwMjctNDFhMS1hMzZkLWRhODZjZjAwZjVjYSIsImlzcyI6Imh0dHBzOi8vZGV1LmlhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2NoZWNrbWFyeC1nbG9iYWwtc2VydmljZXMtaW50ZXJuYWwiLCJhdWQiOiJodHRwczovL2RldS5pYW0uY2hlY2ttYXJ4Lm5ldC9hdXRoL3JlYWxtcy9jaGVja21hcngtZ2xvYmFsLXNlcnZpY2VzLWludGVybmFsIiwic3ViIjoiMjY2M2I5YjktZjcxMy00OTUxLTgxMjUtYTlkNjUyNTBjMjMyIiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImFzdC1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMDZmZDVkZmUtNTg4ZS00MTcxLWI4NmEtNjJkZDAyMDFmOGNkIiwic2NvcGUiOiIgb2ZmbGluZV9hY2Nlc3MiLCJzaWQiOiIwNmZkNWRmZS01ODhlLTQxNzEtYjg2YS02MmRkMDIwMWY4Y2QifQ.O1xZOD35XpjH0XrKMULvdXtx9Ml_k3N7_RDg-bS-8Y0
+        CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
       with:
         command: "web"
         config: './gin_juice.yaml'
