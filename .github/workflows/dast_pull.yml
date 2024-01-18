@@ -1,8 +1,8 @@
 name: CxONE Dast Scan 
 on:
-  pull_request:
-    branches:
-    - main
+  push: 
+      branches:
+      - master
     
   workflow_dispatch: #adds a 'run now' button
   
