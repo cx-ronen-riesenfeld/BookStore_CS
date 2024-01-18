@@ -25,6 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Reclaim output directory  
+      if: always()  
+      run: sudo chown -R 1001:1001 ${{ github.workspace }}/output
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v3
     # Scan
@@ -40,7 +43,7 @@ jobs:
         environment_id: "444062a5-4609-4b64-bb70-39a2e396ab7d"
         fail_on: "HIGH"
         verbose: true
-        output: .
+        output: ./output
     - name: Reclaim output directory  
       if: always()  
       run: sudo chown -R 1001:1001 ${{ github.workspace }}/output
