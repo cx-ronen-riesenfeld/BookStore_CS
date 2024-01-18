@@ -40,7 +40,7 @@ jobs:
         environment_id: "444062a5-4609-4b64-bb70-39a2e396ab7d"
         fail_on: "HIGH"
         verbose: true
-        output: ./output
+        output: .
     - name: Reclaim output directory  
       if: always()  
       run: sudo chown -R 1001:1001 ${{ github.workspace }}/output
