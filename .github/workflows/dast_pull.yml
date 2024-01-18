@@ -29,7 +29,7 @@ jobs:
     - uses: actions/checkout@v3
     # Scan
     - name: Checkmarx DAST Github Action
-      uses: Checkmarx/dast-github-action@v1.0.7
+      uses: Checkmarx/dast-github-action@v1.0.6
       env:
         CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
       with:
