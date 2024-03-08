@@ -1,9 +1,10 @@
 name: CxONE Dast Scan 
-on:
-  push: 
-      branches:
-      - master
-    
+#on:
+#  push: 
+#      branches:
+#      - master
+on: 
+  pull_request    
   workflow_dispatch: #adds a 'run now' button
   
 permissions:
@@ -27,7 +28,7 @@ jobs:
       - name: Test Connectivity
         run: nc -vz iam.checkmarx.net 443        
       - name: Checkmarx DAST Github Action
-        uses: Checkmarx/dast-github-action@v1.0.7
+        uses: Checkmarx/dast-github-action@v1.0.6
         env:
           CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
         with:
