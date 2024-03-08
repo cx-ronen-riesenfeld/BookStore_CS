@@ -49,7 +49,7 @@ jobs:
       context: "GinAndJuice"
       user: "carlos"
       url: "https://ginandjuice.shop/"
-      maxDuration: 10
+      maxDuration: 3
       maxDepth: 0
       maxChildren: 0
       acceptCookies: false
@@ -72,7 +72,7 @@ jobs:
       context: "GinAndJuice"
       user: "carlos"
       url: "https://ginandjuice.shop/"
-      maxDuration: 60
+      maxDuration: 3
       maxCrawlDepth: 10
       numberOfBrowsers: 16
       runOnlyIfModern: false
@@ -86,7 +86,7 @@ jobs:
       user: "carlos"
       policy: ""
       maxRuleDurationInMins: 0
-      maxScanDurationInMins: 0
+      maxScanDurationInMins: 3
       addQueryParam: false
       delayInMs: 0
       handleAntiCSRFTokens: false
