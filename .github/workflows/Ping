@@ -1,0 +1,17 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+      - name: Test Connectivity
+        run: |
+          nc -vz iam.checkmarx.net 443
