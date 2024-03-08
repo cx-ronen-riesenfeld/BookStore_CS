@@ -2,7 +2,7 @@ name: CxONE Dast Scan
 on:
   push: 
       branches:
-      - master1
+      - master
     
   workflow_dispatch: #adds a 'run now' button
   
@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Test Connectivity
+        run: nc -vz iam.checkmarx.net 443        
       - name: Checkmarx DAST Github Action
         uses: Checkmarx/dast-github-action@v1.0.2
         env:
