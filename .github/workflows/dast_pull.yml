@@ -6,7 +6,7 @@ on:
 #on: [  pull_request ]   
   
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   build:
     permissions:
-      contents: write [2, 4, 5] # for actions/checkout to fetch code
+      contents: write # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif
      # The type of runner that the job will run on 
