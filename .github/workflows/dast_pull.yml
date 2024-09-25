@@ -25,8 +25,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Test Connectivity
         run: nc -vz iam.checkmarx.net 443 
-      - name: Set Permissions Output Directory
-        run: sudo chown -R 1001:1001 ${{ github.workspace }}/output
       - name: Checkmarx DAST Github Action
         uses: Checkmarx/dast-github-action@v2.3.0
         env:
