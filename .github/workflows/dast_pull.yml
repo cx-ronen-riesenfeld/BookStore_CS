@@ -23,8 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Create Output folder
-        run: mkdir ${{ github.workspace }}/output
       - name: Change dir owner
         run: sudo chown -R 1000:1000 ${{ github.workspace }}        
       - name: Test Connectivity
