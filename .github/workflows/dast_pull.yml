@@ -26,7 +26,7 @@ jobs:
       - name: Test Connectivity
         run: nc -vz iam.checkmarx.net 443        
       - name: Checkmarx DAST Github Action
-        uses: Checkmarx/dast-github-action@v1.0.2
+        uses: Checkmarx/dast-github-action@v2.3.0
         env:
           CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
         with:
