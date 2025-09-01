@@ -32,8 +32,13 @@ jobs:
         env:
           CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
         with:
+            command: web
+            config: './gin_juice.yaml'
             environment_id: "0477cd1f-2814-461b-b12f-09017a531612"
+            log_level: info
             base_url: "https://ast.checkmarx.net"
+            fail_on: ""
+            verbose: true
             output: ./output            
       - name: Reclaim output directory
         if: always()
