@@ -24,7 +24,7 @@ jobs:
            docker run --pull=always -e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYmI4MjU0NC0yNmM3LTQ3MWQtOWRjOS02NzI4OTBiMjcxYzUifQ.eyJpYXQiOjE3NjQ2MTUxOTgsImp0aSI6IjY0YTA4YWZjLWNhYmItNDk4Zi05OWVlLTMyMDE3NWMyZDRjYyIsImlzcyI6Imh0dHBzOi8vaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvbGF0YW0iLCJhdWQiOiJodHRwczovL2lhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2xhdGFtIiwic3ViIjoiOTRmZTMwNjgtMmEyMi00ZGZhLWFjMzgtMDhjY2UwZTY5MGZkIiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImFzdC1hcHAiLCJzaWQiOiI1ZTc1N2QzYy1jYWEwLTQ2ZjMtYTU2MC02NmI5YjU5NzU5ZmYiLCJzY29wZSI6InJvbGVzIHByb2ZpbGUgZW1haWwgYXN0LWFwaSBpYW0tYXBpIG9mZmxpbmVfYWNjZXNzIn0.T6Lwbtlt-WZKvQskNDTYoRWIxDP9GceZoyI-gkQ3ZwkhL7Cmf4JTOJ3tVhob6FO_FvFoMKYA0-GFD86IY5R6cQ checkmarx/dast:latest scan \
            --environment-id=0477cd1f-2814-461b-b12f-09017a531612 \
            --base-url=https://ast.checkmarx.net \
-           --output=/output
+           --output=./output
       - name: Set permission on output folder
         run: |
          sudo chown -R 1001:1001 ${{ runner.temp }}/output
