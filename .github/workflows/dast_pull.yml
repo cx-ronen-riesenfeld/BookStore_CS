@@ -1,51 +1,40 @@
-name: CxONE Dast Scan 
+name: DAST Demo Env
+
 on:
   push: 
       branches:
       - master
-#on: [  pull_request ]   
-  
-permissions:
-  contents: write
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_dispatch:
 
 jobs:
-  build:
-    permissions:
-      contents: write # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif
-     # The type of runner that the job will run on  
+  dast:
     runs-on: ubuntu-latest
+    name: DAST on Prem Testing Action
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Change dir owner
-        run: sudo chown -R 1000:1000 ${{ github.workspace }}        
+      - name: Checkout Code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Test Connectivity
         run: nc -vz iam.checkmarx.net 443 
-      - name: Checkmarx DAST Github Action
-        uses: Checkmarx/dast-github-action@v2.3.0
-        env:
-          CX_APIKEY: ${{ secrets.CXONE_APIKEY }}
-        with:
-            command: web
-            config: './gin_juice.yaml'
-            environment_id: "0477cd1f-2814-461b-b12f-09017a531612"
-            log_level: info
-            base_url: "https://ast.checkmarx.net"
-            fail_on: ""
-            verbose: true
-            output: ./output            
-      - name: Reclaim output directory
+      - name: Create Output folder
+        run: mkdir ${{ runner.temp }}/output
+      - name: Change dir owner
+        run: sudo chown -R 1000:1000 ${{ runner.temp }}/output
+      - name: Run DAST-CLI command
+        run: |
+           docker run --pull=always \
+-e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYmI4MjU0NC0yNmM3LTQ3MWQtOWRjOS02NzI4OTBiMjcxYzUifQ.eyJpYXQiOjE3NjQ2MTUxOTgsImp0aSI6IjY0YTA4YWZjLWNhYmItNDk4Zi05OWVlLTMyMDE3NWMyZDRjYyIsImlzcyI6Imh0dHBzOi8vaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvbGF0YW0iLCJhdWQiOiJodHRwczovL2lhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2xhdGFtIiwic3ViIjoiOTRmZTMwNjgtMmEyMi00ZGZhLWFjMzgtMDhjY2UwZTY5MGZkIiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImFzdC1hcHAiLCJzaWQiOiI1ZTc1N2QzYy1jYWEwLTQ2ZjMtYTU2MC02NmI5YjU5NzU5ZmYiLCJzY29wZSI6InJvbGVzIHByb2ZpbGUgZW1haWwgYXN0LWFwaSBpYW0tYXBpIG9mZmxpbmVfYWNjZXNzIn0.T6Lwbtlt-WZKvQskNDTYoRWIxDP9GceZoyI-gkQ3ZwkhL7Cmf4JTOJ3tVhob6FO_FvFoMKYA0-GFD86IY5R6cQ \
+checkmarx/dast:latest \
+scan \
+--environment-id=0477cd1f-2814-461b-b12f-09017a531612 \
+--base-url=https://ast.checkmarx.net \
+--output=/tmp
+
+      - name: Set permission on output folder
+        run: |
+         sudo chown -R 1001:1001 ${{ runner.temp }}/output
+      - name: Upload ZAP output
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         if: always()
-        run: sudo chown -R 1001:1001 ${{ github.workspace }}/output
-      - uses: actions/upload-artifact@v4
-        if: always()
-        name: Upload Logs
         with:
-          name: report
-          path: ./output
+          name: zap-output
+          path: ${{ runner.temp }}/output
