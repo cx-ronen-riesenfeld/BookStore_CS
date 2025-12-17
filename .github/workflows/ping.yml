@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [ master1 ]
+    branches: [ master2 ]
 
 jobs:
   deploy:
