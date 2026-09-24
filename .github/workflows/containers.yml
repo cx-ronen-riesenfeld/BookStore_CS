@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Checkmarx Container
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
       - name: analizar
         uses: Checkmarx/ast-github-action@2.3.36
         with:
