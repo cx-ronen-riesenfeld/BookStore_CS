@@ -16,7 +16,7 @@ jobs:
           base_uri: https://ast.checkmarx.net/
           cx_tenant: latam
           cx_client_id: github_container
-          cx_client_secret: github_container
+          cx_client_secret: QLCdIyLOOcLYwKBMunEhgpzi1zJbkVnzAfiEJxq0ITRxEt2RSHCIWDdpnV2pvGqP1iHgn3ImZcE3eBf2g2gg4M
           project_name: ${{ github.repository }}
           branch: ${{ github.head_ref || github.ref }}
           scan_params: # --scan-types container-security --containers-local-resolution
