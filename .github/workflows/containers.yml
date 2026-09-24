@@ -1,0 +1,22 @@
+name: Checkmarx AST Github Action
+
+on:
+  push: 
+      branches:
+      - master
+
+jobs:
+  container_check:
+    runs-on: ubuntu-latest
+    name: Checkmarx Container
+    steps:
+      - name: analizar
+        uses: Checkmarx/ast-github-action@2.3.36
+        with:
+          base_uri: https://ast.checkmarx.net/
+          cx_tenant: latam
+          cx_client_id: github_container
+          cx_client_secret: github_container
+          project_name: ${{ github.repository }}
+          branch: ${{ github.head_ref || github.ref }}
+          scan_params: # --scan-types container-security --containers-local-resolution
